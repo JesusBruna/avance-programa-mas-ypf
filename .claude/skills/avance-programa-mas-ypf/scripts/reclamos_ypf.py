@@ -90,8 +90,9 @@ def main():
                 t = (f"{len(items) + 1}. {LARGO[c]}\n"
                      f"   Objetivo: mín. {es(mn)} % / máx. {es(mx)} %. Real: {es(real) + ' %' if real is not None else 'sin dato'}"
                      + (f" ({es(mn - real)} pp debajo del mínimo)" if real is not None and real < mn else "") + ".\n"
-                     f"   La mediana de nuestra red para este objetivo es {es(med)} %"
-                     + (" y es el valor más alto de la red" if pos == 1 else f" (es el {pos}.º más alto)") + ".\n")
+                     + (f"   Es el objetivo de {LARGO[c].lower()} más alto de nuestra red"
+                        if pos == 1 else f"   Es el {pos}.º objetivo de {LARGO[c].lower()} más alto de nuestra red")
+                     + f"; la mediana de nuestras estaciones es {es(med)} %.\n")
             t += f"   Puntos en juego: {int(f(r['puntos_posibles']))}\n"
             items.append(t)
 

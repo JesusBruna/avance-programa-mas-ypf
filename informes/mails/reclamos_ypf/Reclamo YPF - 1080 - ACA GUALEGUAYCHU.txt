@@ -8,7 +8,7 @@ Criterio de proyección: venta acumulada al 14/10 ÷ 14 días × 31 días.
 
 1. Mix Infinia Diesel
    Objetivo: mín. 77,6 % / máx. 85,8 %. Real: 74,4 % (3,2 pp debajo del mínimo).
-   La mediana de nuestra red para este objetivo es 57,3 % y es el valor más alto de la red.
+   Es el objetivo de mix infinia diesel más alto de nuestra red; la mediana de nuestras estaciones es 57,3 %.
    Puntos en juego: 5
 
 Además, hay puntos del tablero que hoy impiden sumar puntaje:
