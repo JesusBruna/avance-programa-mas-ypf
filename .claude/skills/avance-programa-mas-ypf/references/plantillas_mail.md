@@ -2,10 +2,11 @@
 
 Escribí el cuerpo en texto plano, sin Markdown. Los decimales llevan coma y las unidades van con espacio: `74,4 m3`, `57,9 %`.
 
-## Reclamo a YPF por objetivos
+## Reclamo a YPF (uno por estación)
 
-Asunto: `Programa +YPF – Solicitud de revisión de objetivos <Mes AAAA> – Red ACA`
-(si solo van objetivos altos: `Programa +YPF – Reclamo por objetivos altos – <Mes AAAA> – Red ACA`)
+`reclamos_ypf.py` genera un mail por estación, porque cada una tiene su propio contacto en YPF. Esta es la estructura de referencia; en el mail de cada estación queda solo esa estación.
+
+Asunto: `Programa +YPF – Solicitud de revisión de objetivos <Mes AAAA> – <cód> ACA <ESTACIÓN>`
 
 ```
 Estimados:

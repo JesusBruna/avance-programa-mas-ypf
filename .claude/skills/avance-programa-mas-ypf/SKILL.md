@@ -8,7 +8,7 @@ description: Analiza los tableros PDF "Performance de Red" del Programa +YPF de 
 Flujo mensual: leer los tableros PDF de YPF de cada estación, entender dónde está cada indicador, proyectar el cierre del mes y producir:
 
 1. un análisis general (qué reclamar y dónde están los puntos fáciles);
-2. un mail de reclamo a YPF por objetivos altos, metas faltantes y datos que no aparecen;
+2. un mail de reclamo a YPF **por estación** (cada una tiene su contacto en YPF), por objetivos altos, metas faltantes y datos que no aparecen;
 3. un mail para cada estación, para mandar junto con su tablero de YPF;
 4. opcionalmente, un PDF propio de una página por estación.
 
@@ -77,17 +77,37 @@ Respondé corto y concreto:
 
 Guardá el informe en `informes/` si estás en el repositorio del usuario.
 
-## Paso 3: mail de reclamo a YPF
+## Paso 3: reclamos a YPF (un mail por estación)
 
-Seguí la plantilla de `references/plantillas_mail.md`. Usá los números exactos del CSV y nada inventado. Si el usuario pide solo los objetivos altos, mandá únicamente las secciones de volumen y de porcentajes.
+Cada estación tiene su propio contacto en YPF, así que los reclamos van **separados por estación**: un mail por estación, nunca uno solo con toda la red.
+
+1. **Decidí qué reclamar** con el criterio del Paso 1 y cargalo en `notas.json`. Guardalo como `datos/notas_AAAA-MM.json` para reusarlo y actualizarlo en el mes:
+   - `reclamos`: código → conceptos a reclamar;
+   - `extra_ypf`: código → párrafo especial (tienda sin datos, metas de mix mal calibradas, etc.).
+2. **Generá los mails:**
+   ```bash
+   python3 $SK/reclamos_ypf.py datos/avance_AAAA-MM.csv informes/mails/reclamos_ypf datos/notas_AAAA-MM.json
+   ```
+   Sale un `.txt` por estación con asunto `Programa +YPF – Solicitud de revisión de objetivos <Mes AAAA> – <cód> <ESTACIÓN>`, más un archivo con todos juntos.
+
+   Cada mail incluye:
+   - cada objetivo reclamado, con mínimo y máximo, real, proyección, % del mínimo, ritmo actual contra necesario y puntos en juego;
+   - comparación con la red cuando suma: "es el objetivo más alto de la red", la mediana de la red para los porcentajes, y "No es un caso aislado: X de N estaciones…" si al menos un tercio de la red está debajo del 95 %;
+   - los temas administrativos de esa estación: metas de tienda sin cargar, conceptos con meta y sin dato, o sin meta y con dato. Si no los querés, usá `--sin-administrativos`.
+
+   Las estaciones que no tienen nada para reclamar no generan mail.
+3. **Revisá los textos** antes de entregarlos: los números tienen que coincidir con el CSV y el tono tiene que ser formal.
+
+Si el usuario agrega una estación a mitad de mes, generá solo el reclamo de esa estación. No vuelvas a mandar los ya enviados.
 
 ## Paso 4: mails a cada estación
 
-Antes de generarlos, armá un `notas.json` con lo que no sale de las reglas automáticas:
+Usan el mismo `notas.json` del Paso 3 (ejemplo completo):
 
 ```json
 {
   "reclamos":   {"931": ["lubricantes_m3"], "1239": ["diesel_m3"], "889": ["croselling"]},
+  "extra_ypf":  {"888": "El objetivo de Comidas (250 un.) es muy bajo... verificar la vinculación de la tienda."},
   "extra_mail": {"888": "Croselling y Comidas no muestran ventas: pedimos a YPF revisar la vinculación de la tienda."},
   "notas":      {"931": {"gestion": ["El objetivo de Lubricantes (1,54 m3) es el más alto de la red; lo estamos reclamando a YPF."]}}
 }
@@ -124,6 +144,6 @@ Con el conector de Gmail:
 - **Por defecto, borradores** (`create_draft`) sin destinatario, para que el usuario complete el "Para:", adjunte el tablero y envíe. Usá `includeSignature: true`, cuerpo en texto plano y sin "[Nombre y firma]".
 - **Envío directo** (`send_message`) solo si el usuario lo pide explícitamente y da la dirección. Por ejemplo, "mandámelos a mi mail" quiere decir enviarlos a esa dirección para que él los reenvíe.
 - **Adjuntos:** los tableros de YPF pesan alrededor de 600 KB, demasiado para mandarlos codificados desde la sesión. Avisá que el adjunto queda manual y decí qué PDF va con cada mail.
-- **Orden de envío:** el reclamo a YPF va antes que los mails a las estaciones, porque estos dicen "pedimos a YPF que revise".
+- **Orden de envío:** el reclamo a YPF de cada estación va antes que el mail a esa estación, porque este dice "pedimos a YPF que revise". Mandá los mails por pares, estación por estación, para que el usuario los reenvíe a cada contacto.
 
 Al terminar, decile al usuario dónde encontrar todo (Borradores o bandeja de entrada de tal cuenta) y los pasos para enviarlo, sin jerga técnica.

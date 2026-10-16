@@ -1,0 +1,22 @@
+{
+  "reclamos": {
+    "931": ["lubricantes_m3"],
+    "1240": ["diesel_m3"],
+    "1239": ["diesel_m3"],
+    "1082": ["naftas_m3"],
+    "1101": ["diesel_m3"],
+    "1046": ["diesel_m3"],
+    "887": ["diesel_m3"],
+    "3233": ["diesel_m3", "mix_naftas"],
+    "889": ["croselling"],
+    "1080": ["mix_go"]
+  },
+  "extra_ypf": {
+    "888": "El objetivo de Unidades Comidas y Café (250 un.) es muy bajo comparado con el resto de la red y no se registran ventas de tienda. Les pedimos verificar la vinculación de la tienda con la estación.",
+    "3233": "El objetivo de Mix Infinia Diesel (34,1 %) es bajo frente al real (53,8 %), mientras que el de Mix Infinia naftas es de los más altos de la red: les pedimos revisar la calibración de ambos objetivos de mix."
+  },
+  "extra_mail": {
+    "888": "Croselling y Comidas y Café no muestran ventas en el tablero: pedimos a YPF que revise la vinculación de la tienda. Si ustedes registran ventas de tienda este mes, avísennos.",
+    "1082": "Mix Infinia Diesel figura sin objetivo (hoy suma 5 pts); lo estamos consultando con YPF."
+  }
+}
