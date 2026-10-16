@@ -365,3 +365,27 @@ Columnas: *Proy. cierre* = proyección lineal a fin de mes (solo volúmenes y un
 - **Reclamar:** Croselling y Comidas **sin objetivo** (20 pts). Lubricantes sin dato. Es la boca con peor proyección (~17 pts medibles).
 
 
+
+---
+
+## Anexo: estación incorporada — 3233 ACA COLÓN (datos al 14/10/2026)
+
+| Concepto | Pts | Mín | Máx | Real | Proy. cierre | Proy/Mín | Pts hoy | Pts proy. |
+|---|---|---|---|---|---|---|---|---|
+| Diesel m3 | 15 | 106,6 | 117,8 | 39,0 | 86,4 | **81 %** | 0,0 | 0,0 |
+| Naftas m3 | 20 | 46,0 | 53,7 | 21,0 | 46,5 | 101 % | 0,0 | 14,4 |
+| Mix Infinia naftas % | 10 | 35,0 | 38,7 | 28,6 | = | 82 % | 0,0 | 0,0 |
+| Mix Infinia GO % | 5 | 34,1 | 37,7 | 53,8 | = | 158 % | 5,0 | 5,0 |
+| Lubricantes m3 | 10 | 0,58 | 0,65 | -- | | | -- | -- |
+| Croselling % | 10 | -- | -- | -- | | | -- | -- |
+| Comidas y Café | 10 | -- | -- | -- | | | -- | -- |
+| App YPF % | 10 | 19,7 | 22,7 | 21,0 | = | 107 % | 8,4 | 8,3 |
+| Cliente incógnito / Auditoría imagen | 10 | 80 | 100 | -- | | | -- | -- |
+
+**Puntos hoy: 13,4 · Proyección: ~27,7 (40 pts sin medir).**
+
+- **Diesel – reclamar:** proyecta 86,4 m3 contra un mínimo de 106,6 m3 (81 %). Necesita 4,0 m3/día contra 2,8 actuales (+43 %). Con Colón, ya son 9 de 14 estaciones con diesel por debajo del mínimo.
+- **Mix Infinia naftas – reclamar:** el objetivo de 35,0 % es el segundo más alto de la red (la mediana es 25,8 %) y el real es 28,6 %, a 6,4 pp. En cambio, el objetivo de Mix GO (34,1 %) es bajo para su real de 53,8 %. Parece que las metas de mix están mal calibradas.
+- **Naftas al límite:** proyecta 101 % del mínimo, un objetivo bajo para el volumen de la estación. No hay que aflojar.
+- **App YPF** cumple (21,0 % contra 19,7 %).
+- **Faltantes:** no tiene objetivo de croselling ni de comidas (20 pts) y lubricantes no muestra dato.

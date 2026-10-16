@@ -129,3 +129,13 @@ boca,concepto,obj_min,obj_max,real,fecha,dias,cumpl_pdf,puntos_posibles,puntos_o
 1240-ACA PASO DE LOS LIBRES,app_ypf,8.1,12.1,8.6,14/10/2026,14,73.8,10.0,7.4,8.6,106.2,73.75,7.4,,
 1240-ACA PASO DE LOS LIBRES,cliente_incognito,80.0,100.0,,,14,,5.0,,,,,,,
 1240-ACA PASO DE LOS LIBRES,auditoria_imagen,80.0,100.0,,,14,,5.0,,,,,,,
+3233-ACA COLON,diesel_m3,106.6,117.8,39.0,,14,0.0,15.0,0.0,86.36,81.0,0.0,0.0,2.79,3.98
+3233-ACA COLON,naftas_m3,46.0,53.7,21.0,14/10/2026,14,0.0,20.0,0.0,46.5,101.1,71.94805194805194,14.4,1.5,1.47
+3233-ACA COLON,mix_naftas,35.0,38.7,28.6,14/10/2026,14,0.0,10.0,0.0,28.6,81.7,0.0,0.0,,
+3233-ACA COLON,mix_go,34.1,37.7,53.8,14/10/2026,14,100.0,5.0,5.0,53.8,157.8,100.0,5.0,,
+3233-ACA COLON,lubricantes_m3,0.58,0.65,,14/10/2026,14,,10.0,,,,,,,
+3233-ACA COLON,croselling,,,,13/10/2026,13,,10.0,,,,,,,
+3233-ACA COLON,comidas_un,,,,13/10/2026,13,,10.0,,,,,,,
+3233-ACA COLON,app_ypf,19.7,22.7,21.0,14/10/2026,14,83.7,10.0,8.4,21.0,106.6,83.0,8.3,,
+3233-ACA COLON,cliente_incognito,80.0,100.0,,,14,,5.0,,,,,,,
+3233-ACA COLON,auditoria_imagen,80.0,100.0,,,14,,5.0,,,,,,,
