@@ -1,0 +1,21 @@
+# Sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Archivos temporales de Office
+~$*
+*.tmp
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Node
+node_modules/
+
+# Credenciales y entorno
+.env
+*.key
