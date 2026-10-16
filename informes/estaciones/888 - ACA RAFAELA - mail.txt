@@ -1,0 +1,25 @@
+Asunto: Avance Programa +YPF – ACA RAFAELA – al 14/10/2026
+
+Hola equipo de ACA RAFAELA,
+
+Les compartimos el avance del Programa +YPF con datos al 14/10/2026. Hoy llevan 0,0 pts y, al ritmo actual, proyectamos un cierre de mes de ~33,8 pts (sobre lo que hoy se puede medir).
+
+Dónde enfocar en lo que queda del mes:
+- Mix Infinia en naftas: 24,8 % vs mínimo 25,2 % (faltan 0,4 pp). Muy cerca: son puntos accesibles.
+- Mix Infinia Diesel en gasoil: 53,5 % vs mínimo 57,3 % (faltan 3,8 pp).
+- Penetración App YPF: 11,2 % vs mínimo 11,9 % (faltan 0,7 pp). Muy cerca: son puntos accesibles.
+
+Lo que viene bien:
+- Volumen diesel (Infinia Diesel + D500): al ritmo actual cerraría en ~95,2 m3 (mínimo 86,8).
+- Volumen naftas (Infinia + Súper): al ritmo actual cerraría en ~267,9 m3 (mínimo 234,1).
+
+Temas en gestión / a verificar:
+- Volumen lubricantes: tiene objetivo (0,72 m3) pero no se registra venta en el tablero. Por favor confirmen si hubo ventas/compras en el mes para revisar la carga del dato.
+- Croselling (tienda): tiene objetivo (5,0 %) pero no se registra venta en el tablero. Por favor confirmen si hubo ventas/compras en el mes para revisar la carga del dato.
+- Unidades Comidas y Café: tiene objetivo (250 un.) pero no se registra venta en el tablero. Por favor confirmen si hubo ventas/compras en el mes para revisar la carga del dato.
+- El objetivo de Comidas y Café (250 un.) es muy bajo respecto al resto de la red y no se registran ventas de tienda: verifiquemos que la tienda esté correctamente vinculada a la estación.
+- Cliente incógnito y Auditoría de imagen (10 pts) aún no fueron evaluados. Recuerden que además son condición básica del programa: se requiere ≥75 % en Cliente incógnito y ≥80 % en Auditoría de imagen.
+
+Adjuntamos el informe con el detalle por indicador. Cualquier duda, estamos en contacto.
+
+Saludos,
