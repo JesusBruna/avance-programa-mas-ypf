@@ -24,6 +24,10 @@ import sys
 sys.path.insert(0, os.path.dirname(__file__))
 from informes_por_estacion import MESES, UNIDAD, VOLUMEN, f, fmt  # noqa: E402
 
+NOMBRE_CORTO = {
+    "diesel_m3": "Diesel", "naftas_m3": "Naftas", "mix_naftas": "Mix de Infinia en naftas", "mix_go": "Mix de Infinia Diesel",
+    "lubricantes_m3": "Lubricantes", "croselling": "Croselling", "comidas_un": "Comidas y Café", "app_ypf": "App YPF",
+}
 LARGO = {
     "diesel_m3": "Diesel (Infinia Diesel + D500)", "naftas_m3": "Naftas (Infinia + Súper)",
     "mix_naftas": "Mix Infinia naftas", "mix_go": "Mix Infinia Diesel", "lubricantes_m3": "Lubricantes",
@@ -65,74 +69,68 @@ def main():
         dm = calendar.monthrange(yy, mm)[1]
         items, adm = [], []
 
-        for i, c in enumerate(reclamos.get(cod, []), 1):
+        mes = MESES[mm].lower()
+        cerrado = "--cerrado" in sys.argv
+        for c in reclamos.get(cod, []):
             r = cs[c]
-            mn, mx, real = f(r["obj_min"]), f(r["obj_max"]), f(r["real"])
+            mn, real = f(r["obj_min"]), f(r["real"])
             red = sorted(f(x["obj_min"]) for x in por_conc[c])
             pos = len([v for v in red if v > mn]) + 1
+            nom = NOMBRE_CORTO[c]
             if c in VOLUMEN:
                 u = UNIDAD[c]
-                dec = 0 if c == "comidas_un" else (3 if c == "lubricantes_m3" else 1)
+                dec = 0 if c == "comidas_un" else (2 if c == "lubricantes_m3" else 1)
                 dias = int(r["dias"])
-                act, nec = real / dias, (mn - real) / (dm - dias)
-                t = (f"{len(items) + 1}. {LARGO[c]}\n"
-                     f"   Objetivo: mín. {fmt(mn, c)} {u} / máx. {fmt(mx, c)} {u}\n"
-                     f"   Real al {fecha[:5]}: {fmt(real, c)} {u}, que proyecta {fmt(f(r['proyeccion']), c)} {u} al cierre "
-                     f"({es(f(r['proy_vs_min']), 0)} % del mínimo)\n"
-                     f"   Ritmo necesario {es(nec, dec)} {u}/día contra {es(act, dec)} {u}/día actual (+{es((nec / act - 1) * 100, 0)} %)\n")
+                proy = f(r["proyeccion"])
+                act = real / dias
+                nec = (mn - real) / (dm - dias) if not cerrado and dm > dias else mn / dm
+                verbo = "habría cerrado" if cerrado else "cerraría"
+                t = (f"- {nom}: el mínimo es {fmt(mn, c)} {u} y al {fecha[:5]} la estación llevaba {fmt(real, c)} {u}, así que "
+                     f"{mes} {verbo} en aprox. {es(proy, 0 if proy >= 10 else dec)} {u} (un {es(f(r['proy_vs_min']), 0)} % del mínimo). "
+                     f"Para llegar tendrían que vender aprox. {es(nec, dec)} {u} por día y hoy vienen en aprox. {es(act, dec)}.")
                 if pos == 1:
-                    t += f"   Es el objetivo de {LARGO[c].split(' (')[0].lower()} más alto de nuestra red de {n_bocas} estaciones.\n"
+                    t += f" Además es el objetivo de {nom.lower()} más alto de toda nuestra red."
                 if critico.get(c, 0) >= max(3, n_bocas // 3):
-                    t += (f"   No es un caso aislado: {bajo_min[c]} de nuestras {n_bocas} estaciones proyectan {LARGO[c].split(' (')[0].lower()} "
-                          f"por debajo del mínimo. Les pedimos también la base con la que se fijaron estos objetivos.\n")
+                    t += (f" Y no es un caso aislado: {bajo_min[c]} de nuestras {n_bocas} estaciones quedan abajo del mínimo en "
+                          f"{nom.lower()}, así que también les pediría la base con la que se armaron estos objetivos.")
+                t += " ¿Lo podemos revisar para lo que queda del trimestre?"
             else:
                 med = statistics.median(red)
-                t = (f"{len(items) + 1}. {LARGO[c]}\n"
-                     f"   Objetivo: mín. {es(mn)} % / máx. {es(mx)} %. Real: {es(real) + ' %' if real is not None else 'sin dato'}"
-                     + (f" ({es(mn - real)} pp debajo del mínimo)" if real is not None and real < mn else "") + ".\n"
-                     + (f"   Es el objetivo de {LARGO[c].lower()} más alto de nuestra red"
-                        if pos == 1 else f"   Es el {pos}.º objetivo de {LARGO[c].lower()} más alto de nuestra red")
-                     + f"; la mediana de nuestras estaciones es {es(med)} %.\n")
-            t += f"   Puntos en juego: {int(f(r['puntos_posibles']))}\n"
+                t = (f"- {nom}: el mínimo es {es(mn)} % y la estación está en {es(real) + ' %' if real is not None else '(sin dato)'}. "
+                     + ("Es el objetivo más alto de toda nuestra red" if pos == 1 else f"Es de los objetivos más altos de nuestra red (el {pos}.º)")
+                     + f"; el promedio de nuestras estaciones anda en aprox. {es(med, 0)} %. ¿Lo podemos revisar?")
             items.append(t)
 
         if admin:
             sin_obj = [c for c in ("croselling", "comidas_un") if f(cs[c]["obj_min"]) is None and f(cs[c]["real"]) is None]
             if len(sin_obj) == 2:
-                adm.append("- Sin objetivo de Croselling ni de Unidades Comidas y Café (20 pts que no se pueden sumar). "
-                           "Solicitamos que se carguen los objetivos o que se redistribuya ese puntaje.")
+                adm.append("- Croselling y Comidas y Café: siguen sin objetivo cargado, así que la estación no puede sumar esos "
+                           "20 puntos. ¿Se pueden cargar o redistribuir esos puntos?")
             for c, r in cs.items():
                 if c not in LARGO:
                     continue
                 if f(r["obj_min"]) is not None and f(r["real"]) is None:
                     u = (" " + UNIDAD[c]) if c in UNIDAD else " %"
-                    adm.append(f"- {LARGO[c]}: tiene objetivo ({fmt(f(r['obj_min']), c).replace(' %', '')}{u}) pero el tablero no muestra "
-                               "dato real. Solicitamos confirmar si la información se está cargando.")
+                    adm.append(f"- {NOMBRE_CORTO[c]}: tiene objetivo ({fmt(f(r['obj_min']), c).replace(' %', '')}{u}) pero en el tablero "
+                               "no aparece el dato real. ¿Me confirman si se está cargando?")
                 elif f(r["obj_min"]) is None and f(r["real"]) is not None:
-                    adm.append(f"- {LARGO[c]}: figura sin objetivo y con un real de {fmt(f(r['real']), c)}. "
-                               "Les pedimos confirmar cómo se va a evaluar este indicador al cierre.")
+                    adm.append(f"- {NOMBRE_CORTO[c]}: figura sin objetivo (el real es {fmt(f(r['real']), c)}). "
+                               "¿Me confirman cómo se va a evaluar?")
         if cod in extra:
             adm.append("- " + extra[cod])
         if not items and not adm:
             continue
 
-        L = [f"Asunto: Programa +YPF – Solicitud de revisión de objetivos {MESES[mm]} {yy} – {cod} {nombre}", "",
-             "Estimados:", ""]
-        if items:
-            L += [f"Solicitamos la revisión de los siguientes objetivos del Programa +YPF de {MESES[mm].lower()} {yy} para la estación "
-                  f"{cod} {nombre}. Según el tablero de Performance de Red con datos al {fecha} ({dd} de {dm} días), "
-                  "el objetivo mínimo queda fuera de alcance al ritmo de venta real del mes. Como el indicador no suma puntos "
-                  "si no se llega al mínimo, la estación pierde el puntaje completo aunque sostenga su nivel de venta habitual.", "",
-                  f"Criterio de proyección: venta acumulada al {fecha[:5]} ÷ {dd} días × {dm} días.", ""]
-            L += items
+        loc = "ACA " + nombre.replace("ACA ", "").title()
+        L = [f"Asunto: Programa +YPF – Revisión de objetivos – {cod} {nombre}", "", "Hola, ¿cómo están?", ""]
+        todos_items = items + adm
+        if len(todos_items) == 1:
+            L += [f"Les escribo por el avance de {loc} al {fecha[:5]}. Les quería pedir que revisen esto:", ""]
         else:
-            L += [f"Les escribimos por el tablero de Performance de Red del Programa +YPF de la estación {cod} {nombre} "
-                  f"(datos al {fecha}). Hay algunos puntos que hoy le impiden sumar puntaje:", ""]
-        if adm:
-            if items:
-                L += ["Además, hay puntos del tablero que hoy impiden sumar puntaje:", ""]
-            L += adm + [""]
-        L += ["Quedamos a disposición para revisarlo juntos.", "", "Saludos cordiales,"]
+            L += [f"Les escribo por el avance de {loc} al {fecha[:5]}. Hay algunos temas que les quería pedir que revisen:", ""]
+        for x in todos_items:
+            L += [x, ""]
+        L += ["Quedo atento. ¡Gracias!", "", "Saludos,"]
         txt = "\n".join(L) + "\n"
         with open(os.path.join(out, f"Reclamo YPF - {cod} - {nombre}.txt"), "w", encoding="utf-8") as fh:
             fh.write(txt)

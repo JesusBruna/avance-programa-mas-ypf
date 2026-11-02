@@ -1,27 +1,25 @@
 Asunto: Programa +YPF – ACA FIRMAT – Avance al 29/10
 
-Hola equipo de ACA FIRMAT:
+Hola, equipo de Firmat, ¿cómo están?
 
-Les adjuntamos el tablero de Performance de Red de YPF con datos al 29/10/2026.
+Les paso el tablero del Programa +YPF que nos mandó YPF con los datos al 29/10.
 
-Cómo leerlo:
-- Los objetivos del programa son trimestrales y el tablero muestra el avance de cada mes. Los volúmenes (diesel, naftas, lubricantes y comidas) son acumulados del mes: por eso pueden figurar con 0 % de cumplimiento hasta que se alcanza el mínimo.
-- Cada indicador suma puntos solo si se llega al objetivo mínimo (ahí suma el 70 % de los puntos) y suma el 100 % al llegar al máximo. Quedar apenas por debajo del mínimo no suma nada.
-- Al 29/10 llevaban 36,7 pts y estimamos que octubre cerró en ~36,7 pts (sin contar lo que todavía no se mide).
+Un par de aclaraciones para leerlo: los objetivos son trimestrales, pero el tablero muestra cómo viene cada mes. Los volúmenes se van acumulando durante el mes, así que hasta que no se llega al mínimo figuran con 0 %. Y ojo, que cada indicador suma recién cuando se pasa el mínimo: quedar apenas abajo no suma nada.
 
-Dónde seguir trabajando en noviembre:
-- Diesel: octubre habría cerrado en ~223,4 m3, debajo del mínimo de 234,9 m3 (95 %). Para llegar en noviembre hay que promediar ~7,8 m3/día (en octubre vendieron ~7,2 m3/día).
-- Naftas: octubre habría cerrado en ~203,1 m3, debajo del mínimo de 206,2 m3 (98 %). Para llegar en noviembre hay que promediar ~6,9 m3/día (en octubre vendieron ~6,6 m3/día).
-- App YPF: 9,6 % contra un mínimo de 11,2 % (faltan 1,6 pp).
+Al 29/10 llevaban 36,7 puntos y calculo que octubre cerró en aprox. 36,7 (sin contar lo que todavía no se mide).
 
-Vienen bien en: Mix Infinia naftas, Mix Infinia Diesel, Croselling, Comidas y Café. ¡A sostenerlo!
+Lo bueno: vienen bien en mix de Infinia en naftas, mix de Infinia Diesel, croselling y Comidas y Café. ¡Sigan así!
 
-Para tener en cuenta:
-- Lubricantes todavía no muestra compras en el tablero. La fecha límite de pedido es el 7/12: planifiquen el pedido para llegar al mínimo de 0,79 m3.
-- Auditoría de imagen: 92,9 % — ¡muy bien, cumple la condición del programa (mínimo 80 %)!
-- Cliente incógnito todavía no se evaluó: recuerden que se exige un mínimo de 75 % (atención y prolijidad en playa).
+Para noviembre les pido que pongan foco en:
+- Diesel: octubre habría cerrado en aprox. 223,4 m3, un 95 % del mínimo (234,9 m3). Para llegar en noviembre tendrían que promediar aprox. 7,8 m3 por día; en octubre vendieron aprox. 7,2 m3 por día.
+- Naftas: octubre habría cerrado en aprox. 203,1 m3, un 98 % del mínimo (206,2 m3). Para llegar en noviembre tendrían que promediar aprox. 6,9 m3 por día; en octubre vendieron aprox. 6,6 m3 por día.
+- App YPF: están en 9,6 % y el mínimo es 11,2 %; les faltan 1,6 puntos.
 
-Cualquier duda, quedamos en contacto.
+Otros temas:
+- Lubricantes todavía no muestra compras. El último día para hacer el pedido es el 7/12; planifíquenlo para llegar al mínimo de 0,79 m3.
+- La auditoría de imagen les dio 92,9 %. ¡Muy bien! (el mínimo es 80 %).
+- Todavía falta la evaluación de cliente incógnito. El mínimo es 75 %, así que atención y prolijidad en la playa.
+
+Cualquier cosa me avisan.
 
 Saludos,
-[Nombre y firma]

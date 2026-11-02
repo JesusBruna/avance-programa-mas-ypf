@@ -86,7 +86,7 @@ def bullets(rs, dias_mes):
         mn, real, proy = f(r["obj_min"]), f(r["real"]), f(r["proyeccion"])
         if estado == "ok":
             if c in VOLUMEN:
-                bien.append(f"{n}: al ritmo actual cerraría en ~{fmt(proy, c)} {UNIDAD[c]} (mínimo {fmt(mn, c)}).")
+                bien.append(f"{n}: al ritmo actual cerraría en aprox. {fmt(proy, c)} {UNIDAD[c]} (mínimo {fmt(mn, c)}).")
             else:
                 bien.append(f"{n}: {fmt(real, c)} (mínimo {fmt(mn, c)}).")
         elif estado in ("justo", "riesgo"):
@@ -99,7 +99,7 @@ def bullets(rs, dias_mes):
                 d = 0 if c == "comidas_un" else (3 if c == "lubricantes_m3" else 1)
                 es = lambda v: f"{v:.{d}f}".replace(".", ",")
                 s = (f"{n}: llevan {fmt(real, c)} {u}; faltan {fmt(falta, c)} {u} para el mínimo. "
-                     f"Necesitan ~{es(nec)} {u}/día (hoy venden ~{es(act)} {u}/día).")
+                     f"Necesitan aprox. {es(nec)} {u}/día (hoy venden aprox. {es(act)} {u}/día).")
                 if estado == "justo":
                     s += " Está al límite: se define en los últimos días."
                 foco.append(s)

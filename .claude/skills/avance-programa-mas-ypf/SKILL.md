@@ -177,3 +177,13 @@ YPF manda un mail por estación desde `Programa+YPF@ypf.com`, con asunto `Avance
    - el ranking de puntos hoy y proyectados;
    - qué reclamos quedaron en borrador;
    - las alertas de parseo o de cambio de metas.
+
+## Tono de los mails (preferencia del usuario)
+
+Los mails tienen que sonar **como si los hubiera escrito el coordinador**:
+- **Persona y voz:** primera persona del singular ("les paso", "ya le pedí a YPF", "quedo atento"), en español rioplatense, cercano y concreto.
+- **Aproximaciones:** "aprox." y nunca "~".
+- **Puntos en juego:** no escribas "Puntos en juego: X", ni nada parecido, al final de cada ítem.
+- **Mail a la estación:** saludo ("Hola, equipo de <Localidad>, ¿cómo están?"), una aclaración breve sobre cómo leer el tablero, "Lo bueno" primero, después "Para <mes> les pido que pongan foco en", después "Otros temas", y cierre con "Cualquier cosa me avisan. Saludos,".
+- **Reclamo a YPF:** "Hola, ¿cómo están?", "Les escribo por el avance de ACA <Localidad> al dd/mm…", ítems en viñetas que terminan en una pregunta ("¿Lo podemos revisar…?"), y cierre con "Quedo atento. ¡Gracias! Saludos,". Si YPF ya corrigió algo que se le reclamó, agradecelo al principio.
+- **Al cierre del mes:** pasá `--cerrado` a `mails_estaciones.py` y a `reclamos_ypf.py` cuando el mes de los datos ya terminó.

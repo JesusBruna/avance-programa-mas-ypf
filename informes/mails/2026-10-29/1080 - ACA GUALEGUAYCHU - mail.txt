@@ -1,26 +1,24 @@
 Asunto: Programa +YPF – ACA GUALEGUAYCHU – Avance al 29/10
 
-Hola equipo de ACA GUALEGUAYCHU:
+Hola, equipo de Gualeguaychu, ¿cómo están?
 
-Les adjuntamos el tablero de Performance de Red de YPF con datos al 29/10/2026.
+Les paso el tablero del Programa +YPF que nos mandó YPF con los datos al 29/10.
 
-Cómo leerlo:
-- Los objetivos del programa son trimestrales y el tablero muestra el avance de cada mes. Los volúmenes (diesel, naftas, lubricantes y comidas) son acumulados del mes: por eso pueden figurar con 0 % de cumplimiento hasta que se alcanza el mínimo.
-- Cada indicador suma puntos solo si se llega al objetivo mínimo (ahí suma el 70 % de los puntos) y suma el 100 % al llegar al máximo. Quedar apenas por debajo del mínimo no suma nada.
-- Al 29/10 llevaban 37,0 pts y estimamos que octubre cerró en ~52,5 pts (sin contar lo que todavía no se mide).
+Un par de aclaraciones para leerlo: los objetivos son trimestrales, pero el tablero muestra cómo viene cada mes. Los volúmenes se van acumulando durante el mes, así que hasta que no se llega al mínimo figuran con 0 %. Y ojo, que cada indicador suma recién cuando se pasa el mínimo: quedar apenas abajo no suma nada.
 
-Dónde seguir trabajando en noviembre:
-- Mix Infinia naftas: 24,9 % contra un mínimo de 25,3 % (faltan 0,4 pp). Está muy cerca.
-- Mix Infinia Diesel: 77,5 % contra un mínimo de 77,6 % (faltan 0,1 pp). Está muy cerca. Pedimos a YPF que revise este objetivo; mientras tanto, sigamos empujando.
-- App YPF: 13,1 % contra un mínimo de 14,0 % (faltan 0,9 pp). Está muy cerca.
+Al 29/10 llevaban 37,0 puntos y calculo que octubre cerró en aprox. 52,5 (sin contar lo que todavía no se mide).
 
-Vienen bien en: Diesel, Naftas, Croselling, Comidas y Café. ¡A sostenerlo!
+Lo bueno: vienen bien en diesel, naftas, croselling y Comidas y Café. ¡Sigan así!
 
-Para tener en cuenta:
-- Lubricantes todavía no muestra compras en el tablero. La fecha límite de pedido es el 7/12: planifiquen el pedido para llegar al mínimo de 0,90 m3.
-- Cliente incógnito y Auditoría de imagen todavía no se evaluaron. Además de sumar puntos, son condición del programa (mínimo 75 % y 80 %): prolijidad, imagen y atención en playa.
+Para noviembre les pido que pongan foco en:
+- Mix de Infinia en naftas: están en 24,9 % y el mínimo es 25,3 %; les faltan 0,4 puntos. Están muy cerca.
+- Mix de Infinia Diesel: están en 77,5 % y el mínimo es 77,6 %; les faltan 0,1 puntos. Están muy cerca. Ya le pedí a YPF que revise este objetivo, pero mientras tanto sigamos empujando.
+- App YPF: están en 13,1 % y el mínimo es 14,0 %; les faltan 0,9 puntos. Están muy cerca.
 
-Cualquier duda, quedamos en contacto.
+Otros temas:
+- Lubricantes todavía no muestra compras. El último día para hacer el pedido es el 7/12; planifíquenlo para llegar al mínimo de 0,90 m3.
+- Todavía faltan la auditoría de imagen y la evaluación de cliente incógnito. Los mínimos son 80 % y 75 % y son condición del programa, así que prolijidad, imagen y atención en la playa.
+
+Cualquier cosa me avisan.
 
 Saludos,
-[Nombre y firma]
