@@ -147,3 +147,33 @@ Con el conector de Gmail:
 - **Orden de envío:** el reclamo a YPF de cada estación va antes que el mail a esa estación, porque este dice "pedimos a YPF que revise". Mandá los mails por pares, estación por estación, para que el usuario los reenvíe a cada contacto.
 
 Al terminar, decile al usuario dónde encontrar todo (Borradores o bandeja de entrada de tal cuenta) y los pasos para enviarlo, sin jerga técnica.
+
+## Modo automático desde Outlook (casilla Jesus_Bruna@aca.org.ar)
+
+YPF manda un mail por estación desde `Programa+YPF@ypf.com`, con asunto `Avance + YPF <Trimestre> <cód> - ACA <ESTACIÓN>` y el tablero en PDF adjunto. Cada mail trae en **CC al representante comercial de YPF** de esa estación. Con el conector de Microsoft 365 (Outlook), procesá cada mail nuevo así:
+
+1. **Buscar pendientes.** Usá `outlook_email_search` con `sender: Programa+YPF@ypf.com`, `query: Avance` y `afterDateTime` de hace 10 días. Quedate con los asuntos que empiezan con "Avance + YPF" y que **no** tienen la categoría `Procesado +YPF`. Mirá las categorías con `read_resource` sobre el mail. Los mails "Resultados … Trimestre" no se procesan: son resultados ya cerrados.
+2. **Leer cada tablero.**
+   - Con `read_resource` sobre el mail sacá el adjunto `.pdf`, el CC (el representante) y la fecha.
+   - Con `read_resource` sobre la URI del adjunto obtenés el texto del PDF, desordenado. Guardalo tal cual en `datos/outlook_<AAAA-MM-DD>/<cód>.txt`.
+3. **Pasar a CSV y validar:**
+   ```bash
+   python3 $SK/parsear_texto_outlook.py datos/outlook_<fecha> > datos/avance_<fecha>.csv
+   ```
+   El script recalcula los puntos y los compara con el total del tablero.
+   - Si una estación da `ATENCION`, no generes nada para ella y avisalo en el resumen.
+   - Con `ok`, los números son confiables.
+4. **Período.** YPF habla de objetivos **trimestrales**, pero los volúmenes de combustible se comportan como objetivos del mes en curso.
+   - Compará con el CSV anterior en `datos/`. Si el real de diesel o naftas **bajó**, empezó un período nuevo y los volúmenes son mensuales.
+   - **Lubricantes:** YPF fija la fecha límite de pedido el 7/12 (resto de las regiones), así que no lo reclames por proyección mensual. Reclamalo solo si la meta cambió de forma brusca o es la más alta de la red con mucha diferencia.
+   - Si las metas cambiaron respecto del tablero anterior, mencionalo.
+   - Cerca de fin de mes (faltan menos de 5 días), no reclames por ritmo diario: reclamá solo metas atípicas o faltantes.
+5. **Decidir reclamos** con el criterio del Paso 1 y armar `datos/notas_<fecha>.json`. Después generá los textos con `mails_estaciones.py` y `reclamos_ypf.py`, como en los Pasos 3 y 4.
+6. **Crear borradores en Outlook** (nunca enviar):
+   - **Mail a la estación:** `outlook_create_draft`, sin destinatario, con asunto `Programa +YPF – ACA <ESTACIÓN> – Avance al dd/mm` y cuerpo HTML (`<p>` y `<ul><li>`, sin "[Nombre y firma]"). El tablero no se puede adjuntar desde el conector: el usuario reenvía o adjunta el PDF del mail de YPF.
+   - **Reclamo:** solo si esa estación tiene algo para reclamar. Usá `outlook_create_reply_all_draft` sobre el mail de YPF de esa estación, con el texto del reclamo en HTML. Así queda dirigido a Programa+YPF y al representante en copia, dentro del mismo hilo.
+7. **Marcar el mail de YPF** con `outlook_modify_labels` y la categoría `Procesado +YPF`, para no repetirlo.
+8. **Guardar y resumir.** Hacé commit de `datos/` en la rama de trabajo y push. Dejá un último borrador `Resumen +YPF – dd/mm` dirigido a Jesus_Bruna@aca.org.ar con:
+   - el ranking de puntos hoy y proyectados;
+   - qué reclamos quedaron en borrador;
+   - las alertas de parseo o de cambio de metas.
