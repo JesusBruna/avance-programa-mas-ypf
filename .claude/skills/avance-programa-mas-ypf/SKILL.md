@@ -163,14 +163,14 @@ YPF manda un mail por estación desde `Programa+YPF@ypf.com`, con asunto `Avance
    El script recalcula los puntos y los compara con el total del tablero.
    - Si una estación da `ATENCION`, no generes nada para ella y avisalo en el resumen.
    - Con `ok`, los números son confiables.
-4. **Período.** YPF habla de objetivos **trimestrales**, pero los volúmenes de combustible se comportan como objetivos del mes en curso.
-   - Compará con el CSV anterior en `datos/`. Si el real de diesel o naftas **bajó**, empezó un período nuevo y los volúmenes son mensuales.
-   - **Lubricantes:** YPF fija la fecha límite de pedido el 7/12 (resto de las regiones), así que no lo reclames por proyección mensual. Reclamalo solo si la meta cambió de forma brusca o es la más alta de la red con mucha diferencia.
-   - Si las metas cambiaron respecto del tablero anterior, mencionalo.
-   - Cerca de fin de mes (faltan menos de 5 días), no reclames por ritmo diario: reclamá solo metas atípicas o faltantes.
+4. **Período (confirmado por el usuario).** Los objetivos son **trimestrales**, pero el tablero muestra el avance de **cada mes**: los volúmenes son acumulados del mes en curso y se proyectan al cierre del mes.
+   - **Lubricantes:** YPF fija la fecha límite de pedido el 7/12 (14/12 en la región Metropolitana), así que no los reclames por ritmo diario. Recordale a la estación que haga el pedido. Reclamá solo si la meta cambió de forma brusca o es la más alta de la red con mucha diferencia.
+   - **Cambios de meta:** compará con el CSV anterior de `datos/` y mencioná los cambios en el reclamo, por ejemplo "pasó de 0,33 a 1,52 m3".
+   - **Lote recibido después de que terminó el mes de los datos:** `mails_estaciones.py` dice "el mes cerraría…". Ajustalo a "<mes> habría cerrado en…" y "Para llegar en <mes siguiente> hay que promediar…", y en la intro poné "Al dd/mm llevaban X pts y estimamos que <mes> cerró en ~Y pts".
+   - **Reclamos al cierre del mes:** pedí que revisen la meta para los meses que quedan del trimestre. Si la estación ya está al 95 % o más, no reclames.
 5. **Decidir reclamos** con el criterio del Paso 1 y armar `datos/notas_<fecha>.json`. Después generá los textos con `mails_estaciones.py` y `reclamos_ypf.py`, como en los Pasos 3 y 4.
 6. **Crear borradores en Outlook** (nunca enviar):
-   - **Mail a la estación:** `outlook_create_draft`, sin destinatario, con asunto `Programa +YPF – ACA <ESTACIÓN> – Avance al dd/mm` y cuerpo HTML (`<p>` y `<ul><li>`, sin "[Nombre y firma]"). El tablero no se puede adjuntar desde el conector: el usuario reenvía o adjunta el PDF del mail de YPF.
+   - **Mail a la estación:** `outlook_create_draft`, sin destinatario, con asunto `Programa +YPF – ACA <ESTACIÓN> – Avance al dd/mm` y `bodyType: text` con el texto del `.txt` sin la línea de asunto ni "[Nombre y firma]". El tablero no se puede adjuntar desde el conector: el usuario reenvía o adjunta el PDF del mail de YPF.
    - **Reclamo:** solo si esa estación tiene algo para reclamar. Usá `outlook_create_reply_all_draft` sobre el mail de YPF de esa estación, con el texto del reclamo en HTML. Así queda dirigido a Programa+YPF y al representante en copia, dentro del mismo hilo.
 7. **Marcar el mail de YPF** con `outlook_modify_labels` y la categoría `Procesado +YPF`, para no repetirlo.
 8. **Guardar y resumir.** Hacé commit de `datos/` en la rama de trabajo y push. Dejá un último borrador `Resumen +YPF – dd/mm` dirigido a Jesus_Bruna@aca.org.ar con:

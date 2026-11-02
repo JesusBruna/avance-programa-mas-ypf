@@ -43,6 +43,8 @@ def main():
         reclamos = RECLAMOS.get(cod, [])
 
         foco, bien, pend = [], [], []
+        cierre = dias_mes - int(rs[0]["dias"]) <= 3  # quedan pocos días: hablar de cierre y del mes siguiente
+        dias_prox = calendar.monthrange(yy + (mm == 12), mm % 12 + 1)[1]
         for r in rs:
             c = r["concepto"]
             est, _ = evaluar(r, dias_mes)
@@ -54,10 +56,21 @@ def main():
                     u = UNIDAD[c]
                     dec = 0 if c == "comidas_un" else (3 if c == "lubricantes_m3" else 1)
                     nec, act = (mn - real) / (dias_mes - dias), real / dias
-                    s = (f"{n}: llevan {fmt(real, c)} {u} y el mínimo es {fmt(mn, c)} {u}. "
-                         f"Hay que vender ~{es(nec, dec)} {u}/día (hoy ~{es(act, dec)}).")
-                    if est == "justo":
-                        s += " Está al límite: cada día cuenta."
+                    if c == "lubricantes_m3":
+                        s = (f"{n}: llevan {fmt(real, c)} {u} y el mínimo es {fmt(mn, c)} {u}. "
+                             "Recuerden que la fecha límite de pedido de lubricantes es el 7/12.")
+                    elif cierre and proyc >= mn:
+                        s = (f"{n}: el mes cerraría en ~{fmt(proyc, c)} {u}, apenas por encima del mínimo de {fmt(mn, c)} {u}. "
+                             "No aflojar en los últimos días: si quedan debajo, se pierden todos los puntos del indicador.")
+                    elif cierre:
+                        s = (f"{n}: el mes cerraría en ~{fmt(proyc, c)} {u}, debajo del mínimo de {fmt(mn, c)} {u} "
+                             f"({es(proyc / mn * 100, 0)} %). Para llegar el mes que viene hay que promediar ~{es(mn / dias_prox, dec)} {u}/día "
+                             f"(este mes vendieron ~{es(act, dec)} {u}/día).")
+                    else:
+                        s = (f"{n}: llevan {fmt(real, c)} {u} y el mínimo es {fmt(mn, c)} {u}. "
+                             f"Hay que vender ~{es(nec, dec)} {u}/día (hoy ~{es(act, dec)}).")
+                        if est == "justo":
+                            s += " Está al límite: cada día cuenta."
                 else:
                     s = f"{n}: {fmt(real, c)} contra un mínimo de {fmt(mn, c)} (faltan {es(mn - real)} pp)."
                     if mn - real <= 1:
@@ -68,24 +81,32 @@ def main():
             elif est == "ok":
                 bien.append(n)
             elif est == "sindato" and c == "lubricantes_m3":
-                pend.append("Lubricantes no muestra ventas en el tablero. Si compraron o vendieron lubricantes este mes, avísennos para reclamar el dato.")
+                pend.append("Lubricantes todavía no muestra compras en el tablero. La fecha límite de pedido es el 7/12: "
+                            f"planifiquen el pedido para llegar al mínimo de {fmt(mn, c)} m3.")
         sin_obj = {r["concepto"] for r in rs if not r["obj_min"]}
         if {"croselling", "comidas_un"} <= sin_obj:
-            pend.append("Croselling y Comidas y Café no tienen objetivo asignado (20 pts). Ya lo reclamamos a YPF.")
+            pend.append("Croselling y Comidas y Café no tienen objetivo asignado (20 pts). Lo estamos reclamando a YPF.")
         if cod in EXTRA:
             pend.append(EXTRA[cod])
-        pend.append("Cliente incógnito y Auditoría de imagen todavía no se evaluaron. Además de sumar puntos, son condición del programa "
-                    "(mínimo 75 % y 80 %): prolijidad, imagen y atención en playa.")
+        img = next(r for r in rs if r["concepto"] == "auditoria_imagen")
+        if f(img["real"]) is not None:
+            ok = f(img["real"]) >= 80
+            pend.append(f"Auditoría de imagen: {es(f(img['real']))} %" + (" — ¡muy bien, cumple la condición del programa (mínimo 80 %)!" if ok
+                        else " — está debajo del 80 % que exige el programa como condición básica: hay que corregirlo."))
+            pend.append("Cliente incógnito todavía no se evaluó: recuerden que se exige un mínimo de 75 % (atención y prolijidad en playa).")
+        else:
+            pend.append("Cliente incógnito y Auditoría de imagen todavía no se evaluaron. Además de sumar puntos, son condición del programa "
+                        "(mínimo 75 % y 80 %): prolijidad, imagen y atención en playa.")
 
         L = [f"Asunto: Programa +YPF – {nombre} – Avance al {fecha[:5]}", "",
              f"Hola equipo de {nombre}:", "",
              f"Les adjuntamos el tablero de Performance de Red de YPF con datos al {fecha}.", "",
              "Cómo leerlo:",
-             "- Los volúmenes (diesel, naftas, lubricantes y comidas) son acumulados del mes. Por eso hoy aparecen con 0 % de cumplimiento: se evalúan al cierre.",
+             "- Los objetivos del programa son trimestrales y el tablero muestra el avance de cada mes. Los volúmenes (diesel, naftas, lubricantes y comidas) son acumulados del mes: por eso pueden figurar con 0 % de cumplimiento hasta que se alcanza el mínimo.",
              "- Cada indicador suma puntos solo si se llega al objetivo mínimo (ahí suma el 70 % de los puntos) y suma el 100 % al llegar al máximo. Quedar apenas por debajo del mínimo no suma nada.",
-             f"- Hoy llevan {es(hoy)} pts. Al ritmo actual estimamos ~{es(proy)} pts al cierre (sin contar lo que todavía no se mide).", ""]
+             f"- Hoy llevan {es(hoy)} pts. Al ritmo actual estimamos ~{es(proy)} pts al cierre del mes (sin contar lo que todavía no se mide).", ""]
         if foco:
-            L += ["Dónde seguir trabajando:"] + [f"- {x}" for x in foco] + [""]
+            L += ["Dónde seguir trabajando" + (" (cierre del mes y mes próximo):" if cierre else ":")] + [f"- {x}" for x in foco] + [""]
         if bien:
             L += ["Vienen bien en: " + ", ".join(bien) + ". ¡A sostenerlo!", ""]
         L += ["Para tener en cuenta:"] + [f"- {x}" for x in pend] + [""]

@@ -1,0 +1,15 @@
+{
+  "reclamos": {
+    "1082": ["naftas_m3", "lubricantes_m3"],
+    "931": ["diesel_m3"],
+    "1133": ["diesel_m3"],
+    "1101": ["diesel_m3"],
+    "888": ["diesel_m3"],
+    "1080": ["mix_go"],
+    "889": ["croselling"],
+    "3233": ["mix_naftas", "diesel_m3"]
+  },
+  "extra_mail": {
+    "1082": "Mix Infinia Diesel figura sin objetivo; lo estamos consultando con YPF."
+  }
+}
