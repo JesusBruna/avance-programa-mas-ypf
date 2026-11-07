@@ -19,7 +19,38 @@ import re
 import sys
 
 sys.path.insert(0, os.path.dirname(__file__))
-from analizar_pdfs import proyectar  # noqa: E402
+import calendar  # noqa: E402
+import datetime as dt  # noqa: E402
+
+
+def proyectar(r, fecha):
+    """Proyección acumulada del TRIMESTRE.
+
+    YPF fija objetivos trimestrales y el tablero muestra el acumulado desde el inicio del trimestre
+    contra el mínimo acumulado al cierre del mes en curso (oct: mes 1; nov: oct+nov; dic: trimestre).
+    En el primer mes del trimestre esto coincide con la proyección mensual.
+    """
+    f = r.get("fecha") or fecha
+    d, m, y = map(int, f.split("/"))
+    hoy = dt.date(y, m, d)
+    ini = dt.date(y, 3 * ((m - 1) // 3) + 1, 1)
+    fin_mes = dt.date(y, m, calendar.monthrange(y, m)[1])
+    dias_trim = (hoy - ini).days + 1
+    dias_total = (fin_mes - ini).days + 1
+    restan = max((fin_mes - hoy).days, 1)
+    r["dias"] = dias_trim
+    r["dias_restantes_mes"] = (fin_mes - hoy).days
+    real, mn, mx = r["real"], r["obj_min"], r["obj_max"]
+    if r["acumulable"] and real is not None:
+        r["proyeccion"] = round(real / dias_trim * dias_total, 2)
+        r["ritmo_actual_dia"] = round(real / dias_trim, 3)
+        r["ritmo_necesario_dia"] = round(max(mn - real, 0) / restan, 3) if mn else None
+    else:
+        r["proyeccion"] = real
+    r["cumpl_proyectado"] = cumpl(r["proyeccion"], mn, mx)
+    r["puntos_proyectados"] = round(r["cumpl_proyectado"] / 100 * r["puntos_posibles"], 1) if r["cumpl_proyectado"] is not None else None
+    r["proy_vs_min"] = round(r["proyeccion"] / mn * 100, 1) if r["proyeccion"] and mn else None
+    return r
 
 TOK = re.compile(r"--|[\d][\d,]*(?:\.\d+)?\s*%?")
 PTS = {"diesel_m3": 15, "naftas_m3": 20, "mix_naftas": 10, "mix_go": 5, "lubricantes_m3": 10, "croselling": 10,
@@ -61,7 +92,7 @@ def parse(txt):
     seq = toks(rest.split("Puntos Posibles", 1)[1].split("Penetración App YPF", 1)[0])
     (naf_min, naf_max, mn_min, mn_max, lub_min, lub_max, cr_min, cr_max, app_min, _ci1, _ci2, _x, naf_real, com_real) = seq[:14]
     s2 = toks(rest.split("Penetración App YPF", 1)[1].split("Auditoría de Imagen", 1)[0])
-    die_max, die_min, _10, _a, _b, com_max, app_max, com_min = s2[:8]
+    die_max, die_min, _10, incog_real, _b, com_max, app_max, com_min = s2[:8]
     s3 = toks(rest.split("Auditoría de Imagen", 1)[1].split("Mix Naftas", 1)[0])
     img_real = s3[2]
     s4 = toks(rest.split("Mix GO", 1)[1])
@@ -71,9 +102,10 @@ def parse(txt):
         "mix_naftas": (mn_min, mn_max, head[0]), "mix_go": (go_min, go_max, go_real),
         "lubricantes_m3": (lub_min, lub_max, head[1]), "croselling": (cr_min, cr_max, cros_real),
         "comidas_un": (com_min, com_max, com_real), "app_ypf": (app_min, app_max, app_real),
-        "cliente_incognito": ("80", "100", None), "auditoria_imagen": ("80", "100", img_real),
+        "cliente_incognito": ("80", "100", incog_real), "auditoria_imagen": ("80", "100", img_real),
     }
-    fecha = max(fechas, key=lambda x: (x[6:], x[3:5], x[:2])) if fechas else None
+    # fecha principal = la más repetida (combustibles); la de tienda = la más vieja
+    fecha = max(set(fechas), key=lambda x: (fechas.count(x), x[6:], x[3:5], x[:2])) if fechas else None
     fecha_tienda = min(fechas, key=lambda x: (x[6:], x[3:5], x[:2])) if fechas else fecha
     return nombre, total, d, fecha, fecha_tienda
 
@@ -81,7 +113,7 @@ def parse(txt):
 def main():
     cols = ["boca", "concepto", "obj_min", "obj_max", "real", "fecha", "dias", "cumpl_pdf",
             "puntos_posibles", "puntos_obtenidos", "proyeccion", "proy_vs_min",
-            "cumpl_proyectado", "puntos_proyectados", "ritmo_actual_dia", "ritmo_necesario_dia"]
+            "cumpl_proyectado", "puntos_proyectados", "ritmo_actual_dia", "ritmo_necesario_dia", "dias_restantes_mes"]
     import csv
     w = csv.DictWriter(sys.stdout, fieldnames=cols, extrasaction="ignore")
     w.writeheader()
@@ -98,8 +130,8 @@ def main():
             r = {"boca": nombre, "concepto": c, "obj_min": mn, "obj_max": mx, "real": real, "fecha": f,
                  "cumpl_pdf": round(cp, 1) if cp is not None else None, "puntos_posibles": PTS[c], "puntos_obtenidos": po,
                  "acumulable": c in ACUM}
-            if c in ("cliente_incognito",):
-                r["obj_min"], r["obj_max"] = 80.0, 100.0
+            if c == "cliente_incognito":
+                r["obj_min"], r["obj_max"] = 80.0, 100.0  # mínimo para puntaje; la condición básica exige 75 %
             w.writerow(proyectar(r, fecha))
         if abs(calc - total) > 0.3:
             print(f"ATENCION {nombre}: puntos recalculados {calc:.1f} vs tablero {total:.1f} — revisar a mano", file=sys.stderr)

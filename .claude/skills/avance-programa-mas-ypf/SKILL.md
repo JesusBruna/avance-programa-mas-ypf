@@ -163,17 +163,18 @@ YPF manda un mail por estación desde `Programa+YPF@ypf.com`, con asunto `Avance
    El script recalcula los puntos y los compara con el total del tablero.
    - Si una estación da `ATENCION`, no generes nada para ella y avisalo en el resumen.
    - Con `ok`, los números son confiables.
-4. **Período (confirmado por el usuario).** Los objetivos son **trimestrales**, pero el tablero muestra el avance de **cada mes**: los volúmenes son acumulados del mes en curso y se proyectan al cierre del mes.
+4. **Tablero acumulado del trimestre (visto el 06/11).** Desde el 2.º mes, el real se cuenta desde el inicio del trimestre y el mínimo es la suma de los meses (oct + nov, y en diciembre el trimestre completo). `parsear_texto_outlook.py` proyecta así y calcula el ritmo necesario hasta fin de mes. En los mails a la estación hablá de "llevan X en el trimestre y el mínimo acumulado a fin de <mes> es Y; les faltan Z, aprox. W por día". Pasá `--anterior=<csv previo>` a `mails_estaciones.py` para marcar los datos que no se movieron, porque YPF a veces carga noviembre con demora. A principio de mes, o con datos sin moverse, no reclames volúmenes. Compará el mínimo nuevo con el del mes anterior: si YPF bajó la meta del mes, mencionalo como logro. Cliente incógnito aparece en el tablero después de "Penetración App YPF" y el parser ya lo lee. Si da menos de 75 %, no cumple la condición básica: es una alerta y amerita pedirle a YPF el informe detallado.
+5. **Período (confirmado por el usuario).** Los objetivos son **trimestrales**, pero el tablero muestra el avance de **cada mes**: los volúmenes son acumulados del mes en curso y se proyectan al cierre del mes.
    - **Lubricantes:** YPF fija la fecha límite de pedido el 7/12 (14/12 en la región Metropolitana), así que no los reclames por ritmo diario. Recordale a la estación que haga el pedido. Reclamá solo si la meta cambió de forma brusca o es la más alta de la red con mucha diferencia.
    - **Cambios de meta:** compará con el CSV anterior de `datos/` y mencioná los cambios en el reclamo, por ejemplo "pasó de 0,33 a 1,52 m3".
    - **Lote recibido después de que terminó el mes de los datos:** `mails_estaciones.py` dice "el mes cerraría…". Ajustalo a "<mes> habría cerrado en…" y "Para llegar en <mes siguiente> hay que promediar…", y en la intro poné "Al dd/mm llevaban X pts y estimamos que <mes> cerró en ~Y pts".
    - **Reclamos al cierre del mes:** pedí que revisen la meta para los meses que quedan del trimestre. Si la estación ya está al 95 % o más, no reclames.
-5. **Decidir reclamos** con el criterio del Paso 1 y armar `datos/notas_<fecha>.json`. Después generá los textos con `mails_estaciones.py` y `reclamos_ypf.py`, como en los Pasos 3 y 4.
-6. **Crear borradores en Outlook** (nunca enviar):
+6. **Decidir reclamos** con el criterio del Paso 1 y armar `datos/notas_<fecha>.json`. Después generá los textos con `mails_estaciones.py` y `reclamos_ypf.py`, como en los Pasos 3 y 4.
+7. **Crear borradores en Outlook** (nunca enviar):
    - **Mail a la estación:** `outlook_create_draft`, sin destinatario, con asunto `Programa +YPF – ACA <ESTACIÓN> – Avance al dd/mm` y `bodyType: text` con el texto del `.txt` sin la línea de asunto ni "[Nombre y firma]". El tablero no se puede adjuntar desde el conector: el usuario reenvía o adjunta el PDF del mail de YPF.
    - **Reclamo:** solo si esa estación tiene algo para reclamar. Usá `outlook_create_reply_all_draft` sobre el mail de YPF de esa estación, con el texto del reclamo en HTML. Así queda dirigido a Programa+YPF y al representante en copia, dentro del mismo hilo.
-7. **Marcar el mail de YPF** con `outlook_modify_labels` y la categoría `Procesado +YPF`, para no repetirlo.
-8. **Guardar y resumir.** Hacé commit de `datos/` en la rama de trabajo y push. Dejá un último borrador `Resumen +YPF – dd/mm` dirigido a Jesus_Bruna@aca.org.ar con:
+8. **Marcar el mail de YPF** con `outlook_modify_labels` y la categoría `Procesado +YPF`, para no repetirlo.
+9. **Guardar y resumir.** Hacé commit de `datos/` en la rama de trabajo y push. Dejá un último borrador `Resumen +YPF – dd/mm` dirigido a Jesus_Bruna@aca.org.ar con:
    - el ranking de puntos hoy y proyectados;
    - qué reclamos quedaron en borrador;
    - las alertas de parseo o de cambio de metas.
