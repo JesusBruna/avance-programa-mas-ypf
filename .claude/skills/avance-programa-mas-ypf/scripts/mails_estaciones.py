@@ -13,7 +13,7 @@ import os
 import sys
 
 sys.path.insert(0, os.path.dirname(__file__))
-from informes_por_estacion import MESES, UNIDAD, VOLUMEN, evaluar, f, fmt  # noqa: E402
+from informes_por_estacion import MESES, SIN_FULL, TIENDA, UNIDAD, VOLUMEN, evaluar, f, fmt  # noqa: E402
 
 # Del JSON de notas (opcional):
 #   "reclamos":   {"931": ["lubricantes_m3"], ...}  -> conceptos cuya revisión se pidió a YPF
@@ -78,7 +78,7 @@ def main():
         foco, bien, otros = [], [], []
         for r in rs:
             c = r["concepto"]
-            if c in ("cliente_incognito", "auditoria_imagen"):
+            if c in ("cliente_incognito", "auditoria_imagen") or (cod in SIN_FULL and c in TIENDA):
                 continue
             est, _ = evaluar(r, dias_mes)
             mn, real, proyc = f(r["obj_min"]), f(r["real"]), f(r["proyeccion"])
@@ -130,7 +130,7 @@ def main():
                 otros.append(f"Lubricantes todavía no muestra compras. El último día para hacer el pedido es el 7/12; "
                              f"planifíquenlo para llegar al mínimo de {fmt(mn, c)} m3.")
         sin_obj = {r["concepto"] for r in rs if not r["obj_min"]}
-        if {"croselling", "comidas_un"} <= sin_obj:
+        if {"croselling", "comidas_un"} <= sin_obj and cod not in SIN_FULL:
             otros.append("Croselling y Comidas y Café siguen sin objetivo cargado (son 20 puntos). Ya se lo estoy reclamando a YPF.")
         if cod in EXTRA:
             otros.append(EXTRA[cod])

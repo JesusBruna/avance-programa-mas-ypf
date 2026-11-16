@@ -10,6 +10,11 @@ import html
 import os
 import sys
 
+# Estaciones sin tienda FULL: no tienen (ni van a tener) objetivo de Croselling ni de Comidas y Café.
+# No se reclama ni se menciona; esos 20 puntos simplemente no aplican.
+SIN_FULL = {"887", "931", "1006", "1240", "3233"}  # Ceres, Santa Fe, Tortugas, Paso de los Libres, Colón
+TIENDA = ("croselling", "comidas_un")
+
 NOMBRE = {
     "diesel_m3": "Volumen diesel (Infinia Diesel + D500)",
     "naftas_m3": "Volumen naftas (Infinia + Súper)",

@@ -33,6 +33,8 @@ Cada PDF tiene una página titulada `<código>-ACA <LOCALIDAD>`, por ejemplo `88
 
 "--" significa sin dato o sin objetivo. Croselling y comidas suelen actualizarse un día antes que el resto.
 
+**Estaciones sin tienda FULL:** ACA Ceres (887), ACA Santa Fe (931), ACA Tortugas (1006), ACA Paso de los Libres (1240) y ACA Colón (3233) no tienen FULL, así que no tienen ni van a tener objetivo de Croselling ni de Unidades Comidas y Café. No es un faltante: no se reclama a YPF ni se menciona en el mail a la estación. La lista está en `SIN_FULL` (`scripts/informes_por_estacion.py`); si se suma o se va una estación con FULL, actualizala ahí.
+
 **Escala de puntaje** (deducida de los PDFs, confirmala con los valores de % Cumplimiento):
 - debajo del mínimo: 0 %;
 - en el mínimo: 70 %;
