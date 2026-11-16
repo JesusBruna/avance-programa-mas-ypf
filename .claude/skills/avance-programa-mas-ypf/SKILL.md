@@ -185,6 +185,7 @@ Los mails tienen que sonar **como si los hubiera escrito el coordinador**:
 - **Persona y voz:** primera persona del singular ("les paso", "ya le pedí a YPF", "quedo atento"), en español rioplatense, cercano y concreto.
 - **Aproximaciones:** "aprox." y nunca "~".
 - **Puntos en juego:** no escribas "Puntos en juego: X", ni nada parecido, al final de cada ítem.
-- **Mail a la estación:** saludo ("Hola, equipo de <Localidad>, ¿cómo están?"), una aclaración breve sobre cómo leer el tablero, "Lo bueno" primero, después "Para <mes> les pido que pongan foco en", después "Otros temas", y cierre con "Cualquier cosa me avisan. Saludos,".
-- **Reclamo a YPF:** "Hola, ¿cómo están?", "Les escribo por el avance de ACA <Localidad> al dd/mm…", ítems en viñetas que terminan en una pregunta ("¿Lo podemos revisar…?"), y cierre con "Quedo atento. ¡Gracias! Saludos,". Si YPF ya corrigió algo que se le reclamó, agradecelo al principio.
+- **Saludo y firma:** saludo simple "Hola, ¿cómo están?" (sin "equipo de <Localidad>") y firma "Saludos," + "Jesus.-" en todos los mails (estaciones, reclamos y respuestas). Nada de fórmulas de IA: frases cortas, como las escribe una persona.
+- **Mail a la estación:** "Hola, ¿cómo están?", "Les paso el avance del +YPF al dd/mm.", un recordatorio corto de cómo leer el tablero, "Vienen bien en …, ¡sigan así!", después "Para lo que queda del mes, hay que ponerle foco a:", después "Además:", y cierre "Cualquier cosa me avisan. Saludos, Jesus.-".
+- **Reclamo a YPF:** "Hola, ¿cómo están?", "Les escribo por el avance de ACA <Localidad> al dd/mm…", ítems en viñetas que terminan en una pregunta ("¿Lo podemos revisar…?"), y cierre con "Quedo atento. ¡Gracias! Saludos, Jesus.-". Si YPF ya corrigió algo que se le reclamó, agradecelo al principio.
 - **Al cierre del mes:** pasá `--cerrado` a `mails_estaciones.py` y a `reclamos_ypf.py` cuando el mes de los datos ya terminó.

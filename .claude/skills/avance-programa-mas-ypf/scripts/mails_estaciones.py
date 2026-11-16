@@ -159,22 +159,21 @@ def main():
         estimado = (f"Al {fecha[:5]} llevaban {es(hoy)} puntos y calculo que {mes} cerró en aprox. {es(proy)}"
                     if cerrado else f"Al {fecha[:5]} llevan {es(hoy)} puntos y, si siguen a este ritmo, {mes} cerraría en aprox. {es(proy)}")
         L = [f"Asunto: Programa +YPF – {nombre} – Avance al {fecha[:5]}", "",
-             f"Hola, equipo de {localidad(nombre)}, ¿cómo están?", "",
-             f"Les paso el tablero del Programa +YPF que nos mandó YPF con los datos al {fecha[:5]}.", "",
-             ("Un par de aclaraciones para leerlo: los objetivos son trimestrales y ahora el tablero muestra el acumulado del trimestre "
-              f"contra el mínimo acumulado a fin de {mes}. Por eso los volúmenes figuran con 0 % hasta que se alcanza ese mínimo. "
+             "Hola, ¿cómo están?", "",
+             f"Les paso el avance del +YPF al {fecha[:5]}.", "",
+             (f"Les recuerdo que los objetivos son trimestrales: el tablero muestra lo que llevan desde el 1/{3 * ((mm - 1) // 3) + 1} contra lo que "
+              f"hay que tener a fin de {mes}, por eso los volúmenes aparecen en 0 % hasta que pasan el mínimo. "
               if acumulado_trim else
-              "Un par de aclaraciones para leerlo: los objetivos son trimestrales, pero el tablero muestra cómo viene cada mes. "
-              "Los volúmenes se van acumulando durante el mes, así que hasta que no se llega al mínimo figuran con 0 %. ") +
-             "Y ojo, que cada indicador suma recién cuando se pasa el mínimo: quedar apenas abajo no suma nada.", "",
+              "Les recuerdo que los volúmenes se van acumulando en el mes, por eso aparecen en 0 % hasta que pasan el mínimo. ") +
+             "Cada indicador suma recién cuando se pasa el mínimo.", "",
              estimado + " (sin contar lo que todavía no se mide).", ""]
         if bien:
-            L += [f"Lo bueno: vienen bien en {lista(bien)}. ¡Sigan así!", ""]
+            L += [f"Vienen bien en {lista(bien)}, ¡sigan así!", ""]
         if foco:
-            L += [("Para " + mes_sig if cierre else "Para lo que queda del mes") + " les pido que pongan foco en:"]
+            L += [("Para " + mes_sig if cierre else "Para lo que queda del mes") + ", hay que ponerle foco a:"]
             L += [f"- {x}" for x in foco] + [""]
-        L += ["Otros temas:"] + [f"- {x}" for x in otros] + [""]
-        L += ["Cualquier cosa me avisan.", "", "Saludos,"]
+        L += ["Además:"] + [f"- {x}" for x in otros] + [""]
+        L += ["Cualquier cosa me avisan.", "", "Saludos,", "Jesus.-"]
         txt = "\n".join(L) + "\n"
         with open(os.path.join(out, f"{cod} - {nombre} - mail.txt"), "w", encoding="utf-8") as fh:
             fh.write(txt)

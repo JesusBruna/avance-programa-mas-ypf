@@ -130,7 +130,7 @@ def main():
             L += [f"Les escribo por el avance de {loc} al {fecha[:5]}. Hay algunos temas que les quería pedir que revisen:", ""]
         for x in todos_items:
             L += [x, ""]
-        L += ["Quedo atento. ¡Gracias!", "", "Saludos,"]
+        L += ["Quedo atento. ¡Gracias!", "", "Saludos,", "Jesus.-"]
         txt = "\n".join(L) + "\n"
         with open(os.path.join(out, f"Reclamo YPF - {cod} - {nombre}.txt"), "w", encoding="utf-8") as fh:
             fh.write(txt)

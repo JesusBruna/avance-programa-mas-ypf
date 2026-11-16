@@ -49,29 +49,27 @@ Saludos cordiales,
 ```
 Asunto: Programa +YPF – ACA <ESTACIÓN> – Avance al <dd/mm>
 
-Hola equipo de ACA <ESTACIÓN>:
+Hola, ¿cómo están?
 
-Les adjuntamos el tablero de Performance de Red de YPF con datos al <fecha>.
+Les paso el avance del +YPF al <dd/mm>.
 
-Cómo leerlo:
-- Los volúmenes (diesel, naftas, lubricantes y comidas) son acumulados del mes. Por eso hoy aparecen con 0 % de cumplimiento: se evalúan al cierre.
-- Cada indicador suma puntos solo si se llega al objetivo mínimo (ahí suma el 70 % de los puntos) y suma el 100 % al llegar al máximo. Quedar apenas por debajo del mínimo no suma nada.
-- Hoy llevan <x> pts. Al ritmo actual estimamos ~<y> pts al cierre (sin contar lo que todavía no se mide).
+Les recuerdo que los objetivos son trimestrales: el tablero muestra lo que llevan desde el 1/10 contra lo que hay que tener a fin de <mes>, por eso los volúmenes aparecen en 0 % hasta que pasan el mínimo. Cada indicador suma recién cuando se pasa el mínimo.
 
-Dónde seguir trabajando:
-- <Concepto>: llevan <r> y el mínimo es <m>. Hay que vender ~<n>/día (hoy ~<a>). [Está al límite: cada día cuenta.] [Pedimos a YPF que revise este objetivo; mientras tanto, sigamos empujando.]
-- <Ratio>: <r> % contra un mínimo de <m> % (faltan <g> pp). [Está muy cerca.]
+Al <dd/mm> llevan <x> puntos y, si siguen a este ritmo, <mes> cerraría en aprox. <y> (sin contar lo que todavía no se mide).
 
-Vienen bien en: <lista>. ¡A sostenerlo!
+Vienen bien en <lista>, ¡sigan así!
 
-Para tener en cuenta:
-- Lubricantes sin ventas en el tablero → que avisen si compraron o vendieron.
-- Metas de tienda sin cargar → ya lo reclamamos a YPF.
-- Cliente incógnito y Auditoría de imagen pendientes: además son condición del programa (mínimo 75 % y 80 %).
+Para lo que queda del mes, hay que ponerle foco a:
+- <Concepto>: llevan <r> en el trimestre y el mínimo acumulado a fin de <mes> es <m>. Les faltan <f>: aprox. <n> por día de acá a fin de mes (en lo que va del trimestre vienen promediando aprox. <a> por día).
+- <Ratio>: están en <r> % y el mínimo es <m> %; les faltan <g> puntos. [Están muy cerca.]
 
-Cualquier duda, quedamos en contacto.
+Además:
+- Lubricantes / metas de tienda sin cargar / auditoría de imagen / cliente incógnito.
+
+Cualquier cosa me avisan.
 
 Saludos,
+Jesus.-
 ```
 
-El tono es motivador y concreto, nunca de reproche. A la estación no se le explica la lógica interna del reclamo: solo se le avisa que la meta está en revisión y que siga empujando.
+El tono es el de Jesús escribiendo: frases cortas, cercano, motivador y concreto, nunca de reproche. Usar "aprox." (nunca "~") y no poner "Puntos en juego". A la estación no se le explica la lógica interna del reclamo: solo se le avisa que la meta está en revisión y que siga empujando.
