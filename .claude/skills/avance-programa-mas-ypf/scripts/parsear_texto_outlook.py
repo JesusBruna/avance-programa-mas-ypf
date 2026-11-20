@@ -52,7 +52,7 @@ def proyectar(r, fecha):
     r["proy_vs_min"] = round(r["proyeccion"] / mn * 100, 1) if r["proyeccion"] and mn else None
     return r
 
-TOK = re.compile(r"--|[\d][\d,]*(?:\.\d+)?\s*%?")
+TOK = re.compile(r"--|-?[\d][\d,]*(?:\.\d+)?\s*%?")
 PTS = {"diesel_m3": 15, "naftas_m3": 20, "mix_naftas": 10, "mix_go": 5, "lubricantes_m3": 10, "croselling": 10,
        "comidas_un": 10, "app_ypf": 10, "cliente_incognito": 5, "auditoria_imagen": 5}
 ACUM = {"diesel_m3", "naftas_m3", "lubricantes_m3", "comidas_un"}
@@ -78,7 +78,17 @@ def cumpl(real, mn, mx):
     return 70 + 30 * (real - mn) / (mx - mn)
 
 
+def normalizar(txt):
+    """El conector a veces devuelve números en formato argentino (2.149 / 14,7) y a veces en formato
+    inglés (2,149 / 14.7). Si viene en formato argentino, lo pasa a formato inglés."""
+    if re.search(r"\d,\d+ %", txt) and not re.search(r"\d\.\d+ %", txt):
+        txt = re.sub(r"(?<=\d)\.(?=\d{3}(?!\d))", "", txt)   # 2.149 -> 2149
+        txt = re.sub(r"(?<=\d),(?=\d)", ".", txt)               # 14,7 -> 14.7
+    return txt
+
+
 def parse(txt):
+    txt = normalizar(txt)
     fechas = re.findall(r"\d{2}/\d{2}/\d{4}", txt)
     t = re.sub(r"(\d{2}|--)/(\d{2}|--)/(\d{4}|----)", " ", txt)
     a, rest = t.split("Condiciones básicas solicitadas", 1)
