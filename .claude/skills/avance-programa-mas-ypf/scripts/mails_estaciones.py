@@ -13,7 +13,7 @@ import os
 import sys
 
 sys.path.insert(0, os.path.dirname(__file__))
-from informes_por_estacion import MESES, SIN_FULL, TIENDA, UNIDAD, VOLUMEN, evaluar, f, fmt  # noqa: E402
+from informes_por_estacion import MESES, SIN_FULL, UNIDAD, no_aplica, VOLUMEN, evaluar, f, fmt  # noqa: E402
 
 # Del JSON de notas (opcional):
 #   "reclamos":   {"931": ["lubricantes_m3"], ...}  -> conceptos cuya revisión se pidió a YPF
@@ -78,7 +78,7 @@ def main():
         foco, bien, otros = [], [], []
         for r in rs:
             c = r["concepto"]
-            if c in ("cliente_incognito", "auditoria_imagen") or (cod in SIN_FULL and c in TIENDA):
+            if c in ("cliente_incognito", "auditoria_imagen") or no_aplica(cod, c):
                 continue
             est, _ = evaluar(r, dias_mes)
             mn, real, proyc = f(r["obj_min"]), f(r["real"]), f(r["proyeccion"])

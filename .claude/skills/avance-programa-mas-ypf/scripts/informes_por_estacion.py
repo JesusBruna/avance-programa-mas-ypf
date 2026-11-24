@@ -14,6 +14,13 @@ import sys
 # No se reclama ni se menciona; esos 20 puntos simplemente no aplican.
 SIN_FULL = {"887", "931", "1006", "1240", "3233"}  # Ceres, Santa Fe, Tortugas, Paso de los Libres, Colón
 TIENDA = ("croselling", "comidas_un")
+# Conceptos que no aplican a una estación (no se reclaman ni se mencionan en mails ni informes).
+NO_APLICA = {cod: set(TIENDA) for cod in SIN_FULL}
+NO_APLICA.setdefault("1082", set()).add("mix_go")  # Venado Tuerto: no vende Infinia Diesel / no tiene mix de diesel
+
+
+def no_aplica(cod, concepto):
+    return concepto in NO_APLICA.get(cod, set())
 
 NOMBRE = {
     "diesel_m3": "Volumen diesel (Infinia Diesel + D500)",
@@ -167,6 +174,7 @@ def main():
         d[r["boca"]].append(r)
     for boca, rs in d.items():
         cod = boca.split("-")[0]
+        rs = [r for r in rs if not no_aplica(cod, r["concepto"])]
         nombre = boca.split("-", 1)[1].strip()
         fecha = next(r["fecha"] for r in rs if r["fecha"])
         dd, mm, yy = map(int, fecha.split("/"))

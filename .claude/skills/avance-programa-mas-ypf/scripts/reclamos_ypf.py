@@ -22,7 +22,7 @@ import statistics
 import sys
 
 sys.path.insert(0, os.path.dirname(__file__))
-from informes_por_estacion import MESES, SIN_FULL, TIENDA, UNIDAD, VOLUMEN, f, fmt  # noqa: E402
+from informes_por_estacion import MESES, SIN_FULL, UNIDAD, no_aplica, VOLUMEN, f, fmt  # noqa: E402
 
 NOMBRE_CORTO = {
     "diesel_m3": "Diesel", "naftas_m3": "Naftas", "mix_naftas": "Mix de Infinia en naftas", "mix_go": "Mix de Infinia Diesel",
@@ -107,7 +107,7 @@ def main():
                 adm.append("- Croselling y Comidas y Café: siguen sin objetivo cargado, así que la estación no puede sumar esos "
                            "20 puntos. ¿Se pueden cargar o redistribuir esos puntos?")
             for c, r in cs.items():
-                if c not in LARGO or (cod in SIN_FULL and c in TIENDA):
+                if c not in LARGO or no_aplica(cod, c):
                     continue
                 if f(r["obj_min"]) is not None and f(r["real"]) is None:
                     u = (" " + UNIDAD[c]) if c in UNIDAD else " %"

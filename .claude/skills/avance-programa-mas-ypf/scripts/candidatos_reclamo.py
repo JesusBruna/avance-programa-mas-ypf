@@ -13,7 +13,7 @@ import statistics
 import sys
 import os
 sys.path.insert(0, os.path.dirname(__file__))
-from informes_por_estacion import SIN_FULL, TIENDA  # noqa: E402
+from informes_por_estacion import no_aplica  # noqa: E402
 
 src = sys.argv[1]
 umbral = float(sys.argv[2]) if len(sys.argv) > 2 else 95
@@ -49,7 +49,7 @@ print("\n== 3) SIN OBJETIVO / SIN DATO REAL ==")
 for r in rows:
     if r["concepto"] in ("cliente_incognito", "auditoria_imagen"):
         continue
-    if r["concepto"] in TIENDA and r["boca"].split("-")[0] in SIN_FULL:
+    if no_aplica(r["boca"].split("-")[0], r["concepto"]):
         continue
     if not r["obj_min"]:
         print(f"{r['boca']:30} {r['concepto']:15} SIN OBJETIVO" + (f" (real {r['real']})" if r["real"] else ""))
