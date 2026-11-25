@@ -1,0 +1,10 @@
+{
+  "reclamos": {},
+  "extra_mail": {
+    "1080": "Lubricantes sigue figurando en negativo (-0,03 m3). Ya se lo consulté a YPF; revisen si hubo alguna devolución o nota de crédito. El mínimo es 0,90 m3 y el último día para hacer el pedido es el 7/12."
+  },
+  "extra_ypf": {
+    "1080": "Lubricantes: sigue figurando con -0,03 m3 (negativo). ¿Me confirman si es una devolución o un error de carga?",
+    "1240": "Diesel: figura con 73 m3 desde el tablero del 13/11, aunque naftas sí se actualizó (124 m3 al 22/11). ¿Me confirman si hay algún problema con la carga del diesel de esta estación?"
+  }
+}
